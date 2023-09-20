@@ -1,5 +1,5 @@
 [package]
-name = "COMMON_CONCEPTS"
+name = "common_concepts"
 version = "0.1.0"
 edition = "2021"
 
