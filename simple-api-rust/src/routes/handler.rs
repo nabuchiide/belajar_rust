@@ -35,11 +35,11 @@ pub async fn create_todo_handler(mut body: Todo, db: DB) -> WebResult<impl Reply
 
     for todo in vec.iter() {
         if todo.title == body.title {
-            let error_reponse = GenericResponse {
+            let error_response = GenericResponse {
                 status: "fail".to_string(),
                 message: format!("Todo with title: '{}' already exsist", todo.title),
             };
-            return Ok(with_status(json(&error_reponse), StatusCode::CONFLICT));
+            return Ok(with_status(json(&error_response), StatusCode::CONFLICT));
         }
     }
 
@@ -125,7 +125,7 @@ pub async fn delete_todo_handler(id: String, db: DB) -> WebResult<impl Reply> {
     for todo in vec.iter_mut() {
         if todo.id == Some(id.clone()) {
             vec.retain(|todo| todo.id != Some(id.to_owned()));
-            return Ok(with_status(json(&""), StatusCode::NO_CONTENT));
+            return Ok(with_status(json(&""), StatusCode::OK));
         }
     }
 
