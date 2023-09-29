@@ -1,29 +1,20 @@
-use rocket::get;
-use rocket::http::Status;
-use rocket::serde::json::Json;
-use serde::Serialize;
+mod routes;
 
 #[macro_use]
 extern crate rocket;
 
-#[derive(Serialize)]
-pub struct GenerateResponse {
-    pub status: String,
-    pub message: String,
-}
-
 #[launch]
 fn rocket() -> _ {
-    rocket::build().mount("/api", routes![health_checker_handler])
-}
-
-#[get("/healthchecker")]
-pub async fn health_checker_handler() -> Result<Json<GenerateResponse>, Status> {
-    const MESSAGE: &str = "Build Simple CRUD API With Rust and Rocket";
-
-    let response_json = GenerateResponse {
-        status: "success".to_string(),
-        message: MESSAGE.to_string(),
-    };
-    Ok(Json(response_json))
+    let app_data = routes::models::AppState::init();
+    rocket::build().manage(app_data).mount(
+        "/api",
+        routes![
+            routes::handler::health_checker_handler,
+            routes::handler::todos_list_handler,
+            routes::handler::create_todo_handler,
+            routes::handler::get_todo_handler,
+            routes::handler::edit_todo_handler,
+            routes::handler::delete_todo_handler
+        ],
+    )
 }
