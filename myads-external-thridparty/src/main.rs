@@ -10,6 +10,7 @@ mod config;
 mod routes;
 mod payload;
 mod domain;
+mod services;
 
 
 #[tokio::main]
