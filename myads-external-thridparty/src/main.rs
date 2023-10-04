@@ -8,6 +8,8 @@ use crate::routes::start_server::server_start;
 mod constant;
 mod config;
 mod routes;
+mod payload;
+mod domain;
 
 
 #[tokio::main]
