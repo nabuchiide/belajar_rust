@@ -6,7 +6,8 @@ pub struct AppSettings {
     server_port: u16,
     #[envconfig(from = "DATABASE_URL")]
     database_url: String,
-
+    #[envconfig(from = "REDIS_CLUSTER_NODE")]
+    redis_cluster_node: String,
 }
 
 impl AppSettings {
@@ -17,4 +18,9 @@ impl AppSettings {
     pub fn database_url(&self) -> &str {
         &self.database_url
     }
+
+    pub fn redis_cluster_node(&self) -> &str {
+        &self.redis_cluster_node
+    }
+
 }
